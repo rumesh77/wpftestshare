@@ -1,0 +1,117 @@
+﻿<wpf:ContextModelControl
+    x:Class="Lusi.WPF.Test.Views.DemoDashboards.DashBoardNavigationDemo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:extensions="clr-namespace:Lusi.View.WPF.Extensions;assembly=Lusi.View.WPF"
+    xmlns:g="clr-namespace:Lusi.View.WPF;assembly=Lusi.View.WPF"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sm="clr-namespace:Lusi.Model.Sustainment;assembly=Lusi.Model"
+    xmlns:svm="clr-namespace:Lusi.WPF.Test.ViewModels.Sustainment"
+    xmlns:webControls="clr-namespace:System.Web.UI.WebControls;assembly=System.Web.Extensions"
+    xmlns:wpf="clr-namespace:Torq.Mvvm.WPF;assembly=Torq.Mvvm.WPF"
+    d:DataContext="{d:DesignInstance svm:DashBoardNavigationDemoViewModel,
+                                     IsDesignTimeCreatable=True}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:TypeArguments="svm:DashBoardNavigationDemoViewModel"
+    AutoCreateContext="True"
+    mc:Ignorable="d">
+    <Grid
+        Margin="10,0,0,0"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border
+            Grid.Column="0"
+            BorderBrush="Gray"
+            BorderThickness="0" />
+        <Grid
+            Grid.Column="0"
+            Margin="10"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+
+
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Column="0">
+
+                <ListView
+                    x:Name="listViewForce"
+                    Height="1000"
+                    BorderBrush="Transparent"
+                    ItemsSource="{Binding ForceSelection}"
+                    SelectedItem="{Binding ClassSelection, Mode=TwoWay}"
+                    SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="140" />
+                                        <ColumnDefinition Width="25" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Column="0">
+                                        <g:NavigateByForceControl DataContext="{Binding .}" />
+                                    </Grid>
+                                    <Grid Column="1">
+                                        <g:SeparatorControl ArrowDirection="Right" />
+                                    </Grid>
+                                </Grid>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Grid>
+
+        <Grid Margin="10" Column="1">
+            <WrapPanel>
+                <ScrollViewer
+                    Width="500"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Hidden">
+                    <ItemsControl ItemsSource="{Binding ClassSelection.Classes}">
+
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Rows="1" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type sm:AssetClass}">
+                                <Grid Margin="15,0,15,0">
+                                    <g:AssetsStatusDropDown DataContext="{Binding .}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <ScrollViewer.Resources>
+                        <Style TargetType="ScrollBar">
+                            <Setter Property="Opacity" Value="0.18" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                        </Style>
+                    </ScrollViewer.Resources>
+                </ScrollViewer>
+            </WrapPanel>
+        </Grid>
+    </Grid>
+</wpf:ContextModelControl>
+
