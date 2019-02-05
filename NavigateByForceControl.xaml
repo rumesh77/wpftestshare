@@ -1,0 +1,218 @@
+﻿<tv:ContextModelControl
+    x:Class="Lusi.View.WPF.NavigateByForceControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:e="clr-namespace:Lusi.View.WPF.Extensions"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sm="clr-namespace:Lusi.Model.Sustainment;assembly=Lusi.Model"
+    xmlns:sustainment="clr-namespace:Lusi.Model.Sustainment;assembly=Lusi.Model"
+    xmlns:svm="clr-namespace:Lusi.ViewModel.Sustainment;assembly=Lusi.ViewModel"
+    xmlns:tv="clr-namespace:Torq.Mvvm.WPF;assembly=Torq.Mvvm.WPF"
+    xmlns:wpf="clr-namespace:Lusi.View.WPF"
+    x:Name="userControl"
+    Width="188"
+    Height="Auto"
+    HorizontalAlignment="Left"
+    VerticalAlignment="Top"
+    d:DataContext="{d:DesignInstance svm:NavigateByForceControlModel,
+                                     IsDesignTimeCreatable=True}"
+    x:TypeArguments="sustainment:IAssetSelection"
+    BorderThickness="0"
+    RenderTransformOrigin="0,0"
+    ViewModelHolder="{x:Reference viewModelHolder}"
+    mc:Ignorable="d">
+    <tv:ContextModelControl.Resources>
+        <CollectionViewSource x:Key="AssetClassList" Source="{Binding ContextModel.Classes}">
+            <CollectionViewSource.SortDescriptions>
+                <componentModel:SortDescription Direction="Ascending" PropertyName="Acronym" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+
+        <Style x:Key="CtrlGridStyle" TargetType="{x:Type Grid}">
+            <Setter Property="Background" Value="#F1F1F0" />
+        </Style>
+
+        <Style x:Key="CtrlBorderStyle" TargetType="{x:Type Border}">
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style x:Key="CtrlEllipseGridStyle" TargetType="{x:Type Grid}">
+            <Setter Property="Margin" Value="0,-15,1,1" />
+            <Setter Property="Height" Value="8" />
+        </Style>
+
+        <Style x:Key="CtrlEllipseStyle" TargetType="{x:Type Ellipse}">
+            <Setter Property="Fill" Value="Green" />
+            <Setter Property="Stroke" Value="Green" />
+            <Setter Property="Width" Value="4" />
+            <Setter Property="Height" Value="4" />
+        </Style>
+
+        <Style x:Key="CtrlButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#77ABCB" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Padding" Value="3,0,5,0" />
+            <Setter Property="Margin" Value="10,5,10,5" />
+        </Style>
+
+        <Style x:Key="CtrlTitleTextBlockStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Background" Value="#77ABCB" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Padding" Value="3,0,5,0" />
+            <Setter Property="Margin" Value="10,5,10,5" />
+        </Style>
+
+        <Style x:Key="CtrlTextBlockStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="Calibri Light" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="UltraBlack" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="TextTrimming" Value="WordEllipsis" />
+        </Style>
+
+    </tv:ContextModelControl.Resources>
+
+    <Grid
+        Name="viewModelHolder"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch">
+        <Grid.DataContext>
+            <svm:NavigateByForceControlModel />
+        </Grid.DataContext>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="40" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid
+            Grid.Row="0"
+            Margin="10,0,0,0"
+            Column="1">
+            <!--<wpf:SeparatorControl ArrowDirection="Right" />-->
+        </Grid>
+
+        <!--<Grid Grid.Row="0" Column="2">
+            <Viewbox>
+                <Viewbox.LayoutTransform>
+                    <RotateTransform Angle="90" />
+                </Viewbox.LayoutTransform>
+                <TextBlock Text="Patrol Force Issue Status" />
+            </Viewbox>
+        </Grid>-->
+
+        <Grid
+            Grid.Row="0"
+            Grid.Column="0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Style="{StaticResource CtrlGridStyle}">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Border
+                Grid.RowSpan="4"
+                Grid.ColumnSpan="3"
+                Style="{StaticResource CtrlBorderStyle}" />
+
+            <Grid
+                Grid.Column="0"
+                ColumnSpan="3"
+                Row="2">
+
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <ItemsControl ItemsSource="{Binding ContextModel.Classes}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type sm:AssetClass}">
+                                <Grid
+                                    Height="Auto"
+                                    Margin="0,0,0,0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="4*" />
+                                        <RowDefinition Height="2*" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <wpf:ColorizedImageControl
+                                        x:Name="colorizer"
+                                        Width="115"
+                                        Height="25"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        ImageFile="{Binding ImageFile}"
+                                        StatusColor="{Binding Status.OverallHealth, Converter={e:HealthColorConverter}}" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Style="{StaticResource CtrlTextBlockStyle}"
+                                        Text="{Binding Acronym}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+
+            <Grid
+                Grid.Row="0"
+                Grid.Column="2"
+                RowSpan="2"
+                Style="{StaticResource CtrlEllipseGridStyle}">
+                <Viewbox HorizontalAlignment="Right">
+                    <Ellipse
+                        x:Name="expandedIndicatorCircle"
+                        Style="{StaticResource CtrlEllipseStyle}"
+                        Visibility="{Binding Path=IsClicked, ElementName=userControl}" />
+                </Viewbox>
+            </Grid>
+
+            <Grid
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="3">
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="10,5,10,5"
+                    Padding="5,0,5,0"
+                    Background="#77ABCB"
+                    FontSize="16"
+                    Foreground="White"
+                    Text="{Binding ContextModel.SelectionName}"
+                    TextAlignment="Center"
+                    TextTrimming="CharacterEllipsis" />
+                <!--<Button
+                    Grid.Column="0"
+                    Click="ButtonBase_OnClick"
+                    Content="{Binding ContextModel.SelectionName}"
+                    Style="{StaticResource CtrlButtonStyle}" />-->
+            </Grid>
+        </Grid>
+    </Grid>
+
+</tv:ContextModelControl>
